@@ -1,0 +1,35 @@
+<body>
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <div ng-app="app" ng-controller="myCtrl">
+        <p>CITY: <input type="text" name="cityname" ng-model="cityname" required /></p>
+        <p>AREA: <input type="text" name="areaname" ng-model="areaname" required /></p>
+		<p>TENDER TYPE: <input type="text" name="tendertype" ng-model="tendertype" required /></p>
+        <button ng-click="SendData()">Submit</button>
+        <hr />
+        {{ PostDataResponse }}
+    </div>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("myCtrl", function($scope,$http){
+        $scope.SendData = function() {
+		
+		
+            var data = {
+                   cName : $scope.cityname,
+				  aName : $scope.areaname,
+				  tName : $scope.tendertype
+                }
+            $http.post('/post', data)
+                .success(function (data, status, headers, config) {
+                    $scope.PostDataResponse = data;
+                })
+                .error(function(data, status, header, config){
+                    $scope.PostDataResponse = "Data: " + status;
+
+
+                });
+        };  		
+        });
+    </script>
+ </body>
