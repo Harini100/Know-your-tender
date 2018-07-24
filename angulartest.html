@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -72,7 +72,7 @@
 
 </head>
 
-<body>
+<body onload="loadCities()">
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
@@ -87,7 +87,7 @@
 		<section id="contact">
 			<div class="section-content">
 				<h1 class="section-header"> <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s">Know Your Tender</span></h1>
-				<h3 style="font-family: 'Teko', sans-serif">Please enter the following fields</h3><br>
+				<h3 style="font-family: 'Teko', sans-serif">Please specify period of time for which you want to get the notifications </h3><br>
 			</div>
 
 
@@ -101,7 +101,7 @@
            <div class="col-md-4" style="text-align: center">
             <label>
 
-                STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename" onchange="loadCities()" required>
+                STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename">
 
 
 
@@ -121,7 +121,7 @@
             <div class="col-md-4" style="text-align: center">
             <label>
 
-                CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()" required>
+                CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()">
 
 
 
@@ -138,7 +138,7 @@
 			<div class="col-md-4" style="text-align: center">
             <label>
 
-                AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname" required>
+                AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname">
 
 
 
@@ -154,14 +154,14 @@
 			
 			<div class="col-md-6" style="text-align: center">
             <label>
-				FROM:&nbsp <input type="date" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" onchange="dateChecker()" required/>
+				FROM:&nbsp <input type="datetime-local" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" />
             </label>
 			
 			</div>
 			
 			<div class="col-md-6" style="text-align: center">
             <label>
-				TO:&nbsp <input type="date" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" onchange="dateChecker()" required/>
+				TO:&nbsp <input type="datetime-local" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" />
             </label>
 			
 			</div>
@@ -170,12 +170,30 @@
             
             <br>
             <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-primary mb-2" ng-click="form1.$valid && SendData()">Submit</button>
+            <button type="button" class="btn btn-primary mb-2" ng-click="SendData()">Submit</button>
 			</div>
 
 
         </form>
+		
+		<br>
+		
+		
+		<section id="contact">
+			<div class="section-content">
+				<h3 style="font-family: 'Teko', sans-serif">Specify the tag that you want to search for.</h3><br>
+			</div>
+		<form name="form2" class="form-inline" role="form">
 
+                <div class="col-md-12" style="text-align: center">
+
+                ENTER KEYWORD:&nbsp   <input type="text" ng-model="searchquery">
+            
+            <button type="button" class="btn btn-primary mb-2" ng-click="SearchData()">SEARCH</button>
+			   </div>
+
+
+        </form>
 
         <!--<hr/> {{PostDataResponse.dataArray}}-->
         <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
@@ -187,7 +205,9 @@
           <button ng-click="SendData()">Submit</button> -->
 		  
 		  
-		          <h4 ng-repeat="tender in PostDataResponse.dataArray">
+		         
+				  
+				  <h4 ng-repeat="tender in PostDataResponse.notifications">
 
             <div class="card">
 
@@ -195,48 +215,53 @@
 
                 <div class="card-body">
 
-                  <h4 class="card-title">{{tender.docName}}</h4>
-
-                    <h5 class="card-text">{{tender.hostUrl}}</h5>
+                    <h5 class="card-text">{{tender.pageUrl}}</h5>
 					
-					<h5 class="card-text">{{tender.publishedDate}}</h5>
+					<h5 class="card-text">{{tender.linkUrl}}</h5>
 
-					<h6 ng-repeat="link in tender.documentLinks">
-
-
-
-                        <a href={{link}} class="card-link" target="_blank">Link{{$index + 1}}</a>
+					<h6 ng-repeat="tag in tender.tags">
 
 
+
+                        <a href={{tag}} class="card-link">Link{{$index + 1}}</a>
 
                     </h6>
-
-                   
-					
-
                 </div>
 
 
 
-            </div>
+            </div> 
+			
+			
+			<h4 ng-repeat="tender in PostData.notifications">
+
+            <div class="card">
+
+
+
+                <div class="card-body">
+
+                    <h5 class="card-text">{{tender.pageUrl}}</h5>
+					
+					<h5 class="card-text">{{tender.linkUrl}}</h5>
+
+					<h6 ng-repeat="tag in tender.tags">
+
+
+
+                        <a href={{tag}} class="card-link">Link{{$index + 1}}</a>
+
+                    </h6>
+                </div>
+
+
+
+            </div> 
     </div>
 
 
 
-
-
-
-
     <script>
-
-        function dateChecker() {
-            if (document.getElementById("fromdate").value != "" && document.getElementById("todate").value != "") {
-                if (document.getElementById("todate").value < document.getElementById("fromdate").value) {
-                    alert("To date must not be lesser than from date.");
-                    document.getElementById("todate").value = "";
-                }
-            }
-        }
 
         function loadCities() {            
 
@@ -353,8 +378,52 @@
                 });
 
         };
+		
+		
+		$scope.SearchData = function() {
+
+
+
+            var data = {
+
+				   sName :$scope.searchquery
+
+                }
+
+            $http.post('/post1', data)
+
+                .success(function (data, status, headers, config) {
+
+                    $scope.PostData = data;
+
+					/*var m=data.map(JSON.stringify);
+
+					for (var i=0;i<m.length;i++) {
+
+			              var mj=JSON.parse(m[i]);
+
+							alert(mj.name);
+
+							for(var j=0;j<mj.Links.length;j++)
+
+							   alert(mj.Links[j]);
+
+						}*/
+
+                })
+
+                .error(function(data, status, header, config){
+
+                    $scope.PostData = "Data: " + status;
+
+
+
+                });
+
+        };
 
         });
 
     </script>
+
 </body>
