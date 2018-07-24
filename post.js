@@ -5,9 +5,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.get('/angulartest.html', function(req, res){
+app.get('/angulartest.html', function (req, res) {
     res.sendFile(__dirname + '/' + 'angulartest.html');
     console.log("----------------");
+});
+app.get('/cities.json', function (req, res) {
+    res.sendFile(__dirname + '/' + 'cities.json');
+    console.log("################");
+});
+app.get('/areas.json', function (req, res) {
+    res.sendFile(__dirname + '/' + 'areas.json');
+    console.log("################");
 });
 app.post("/post", function (req, res) {
 	    var response2;

@@ -1,10 +1,12 @@
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<style media="screen" type="text/css">
-ul li{
-  display: inline;
-}
-</style>
- <title>Tender Details</title>
+    <style media="screen" type="text/css">
+        ul li {
+            display: inline;
+        }
+    </style>
+    <title>Tender Details</title>
 
     <meta charset="utf-8">
 
@@ -18,12 +20,12 @@ ul li{
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-<body>
- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body onload="loadCities()">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <div class = "container" ng-app="app" ng-controller="myCtrl">
-	    <!-- <select ng-model="selectedName" ng-options="x for x in names"></select> -->
-		<h2>Tender Details</h2>
+    <div class="container" ng-app="app" ng-controller="myCtrl">
+        <!-- <select ng-model="selectedName" ng-options="x for x in names"></select> -->
+        <h2>Tender Details</h2>
 
 
 
@@ -31,75 +33,106 @@ ul li{
 
 
 
-            <label>CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname">
+            <label>
+                CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()">
 
-				<option selected>Bangalore</option>
+                    <option disabled selected value>select city</option>
 
-                <option>Chennai</option>
+                </select>
+            </label>
 
-            </select>
-			</label>
-			
-			<label>AREA:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="areaname">
+            <label>
+                AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname">
 
-				<option>Adyar</option>
+                    <option disabled selected value>select area</option>
 
-                <option>Bellandur</option>
+                </select>
+            </label>
 
-            </select>
-			</label>
-			
-			<label>TENDER TYPE:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="tendertype">
+            <label>
+                TENDER TYPE:&nbsp   <select name="ttype" class="form-control mb-2 mr-sm-2" id="ttype" ng-model="tendertype">
 
-				<option>Road Tender</option>
+                    <option disabled selected value>select tender type</option>
 
-                <option>Construction Tender</option>
+                    <option>Road Tender</option>
 
-            </select>
-			</label>
-			
-			<button type="button" class="btn btn-primary mb-2" ng-click="SendData()">Submit</button>
+                    <option>Construction Tender</option>
+
+                </select>
+            </label>
+
+            <button type="button" class="btn btn-primary mb-2" ng-click="SendData()">Submit</button>
 
         </form>
 
-      <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
-        <p>AREA: <input type="text" ng-model="areaname" required /></p>
-		<p>TENDER TYPE: <input type="text"  ng-model="tendertype" required /></p>
-        <button ng-click="SendData()">Submit</button> -->
-		 <br /><br/>
+        <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
+          <p>AREA: <input type="text" ng-model="areaname" required /></p>
+          <p>TENDER TYPE: <input type="text"  ng-model="tendertype" required /></p>
+          <button ng-click="SendData()">Submit</button> -->
+        <br /><br />
 
 
         <h4 ng-repeat="tender in PostDataResponse">
-        <div class="card">
+            <div class="card">
 
-            <div class="card-body">
+                <div class="card-body">
 
-                <h4 class="card-title">{{tender.name}}</h4>
+                    <h4 class="card-title">{{tender.name}}</h4>
 
-                <p class="card-text"><h6>Small snippet or date</h6></p>
-				
-				<h6 ng-repeat="link in tender.Links">
+                    <p class="card-text"><h6>Small snippet or date</h6></p>
 
-                <a href={{link}} class="card-link">Link{{$index + 1}}</a>
-				
-				</h6>
+                    <h6 ng-repeat="link in tender.Links">
+
+                        <a href={{link}} class="card-link">Link{{$index + 1}}</a>
+
+                    </h6>
+
+                </div>
 
             </div>
 
-        </div>
+            <br />
 
-        <br />
-		
     </div>
-	
-	
+
+
 
     <script>
+        function loadCities() {            
+            var url = "cities.json";
+            var y = document.getElementById("city");
+            $.getJSON(url, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = json[i].city;
+                    y.add(option);
+                }
+            });
+        }
+
+        function loadAreas() {
+            var x = document.getElementById("area");
+            var y = document.getElementById("city");
+            while (x.length > 0) {
+                x.remove(0);
+            }
+            var url = "areas.json";
+            $.getJSON(url, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].city == y.value) {
+                        var option = document.createElement("option");
+                        option.text = json[i].area;
+                        x.add(option);
+                    }
+                }
+            });
+        }
+
         var app = angular.module("app",[]);
         app.controller("myCtrl", function($scope,$http){
 		$scope.names = ["Emil", "Tobias", "Linus"];
         $scope.SendData = function() {
-		
+
             var data = {
                    cName : $scope.cityname,
 				  aName : $scope.areaname,
@@ -120,7 +153,7 @@ ul li{
                     $scope.PostDataResponse = "Data: " + status;
 
                 });
-        };  		
+        };
         });
     </script>
- </body>
+</body>
