@@ -100,10 +100,11 @@
 
 
 
+            
 
 
 
-            <div class="col-md-3" style="text-align: center">
+            <div class="col-md-4" style="text-align: center">
             <label>
 
                 CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()">
@@ -120,7 +121,7 @@
 			</div>
 
 
-			<div class="col-md-3" style="text-align: center">
+			<div class="col-md-4" style="text-align: center">
             <label>
 
                 AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname">
@@ -135,33 +136,26 @@
 
             </label>
 			</div>
-
-            <div class="col-md-3" style="text-align: center">
+			
+			
+			<div class="col-md-6" style="text-align: center">
             <label>
-
-                TENDER TYPE:&nbsp   <select name="ttype" class="form-control mb-2 mr-sm-2" id="ttype" ng-model="tendertype">
-
-
-
-                    <option disabled selected value>select type</option>
-
-
-
-                    <option>Road</option>
-
-
-
-                    <option>Construction</option>
-
-
-
-                </select>
-
+				FROM:&nbsp <input type="date" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" />
             </label>
+			
 			</div>
-            
+			
+			<div class="col-md-6" style="text-align: center">
+            <label>
+				TO:&nbsp <input type="date" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" />
+            </label>
+			
+			</div>
 
-            <div class="col-md-3" style="text-align: center">
+            
+            
+            <br>
+            <div class="col-md-12" style="text-align: center">
             <button type="button" class="btn btn-primary mb-2" ng-click="SendData()">Submit</button>
 			</div>
 
@@ -169,7 +163,7 @@
         </form>
 
 
-
+        <hr/> {{PostDataResponse.dataArray}}
         <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
 
           <p>AREA: <input type="text" ng-model="areaname" required /></p>
@@ -177,14 +171,9 @@
           <p>TENDER TYPE: <input type="text"  ng-model="tendertype" required /></p>
 
           <button ng-click="SendData()">Submit</button> -->
-
-        <br /><br />
-
-
-
-
-
-        <h4 ng-repeat="tender in PostDataResponse">
+		  
+		  
+		          <h4 ng-repeat="tender in PostDataResponse.dataArray">
 
             <div class="card">
 
@@ -194,15 +183,13 @@
 
 
 
-                    <h4 class="card-title">{{tender.name}}</h4>
+                    <h4 class="card-text">{{tender.locality}}</h4>
+					
+					<h4 class="card-text">{{tender.docType}}</h4>
+					
+					<h4 class="card-text">{{tender.publishedTime}}</h4>
 
-
-
-                    <p class="card-text"><h6>Small snippet or date</h6></p>
-
-
-
-                    <h6 ng-repeat="link in tender.Links">
+					<h6 ng-repeat="link in tender.linkOfTheDocs">
 
 
 
@@ -212,13 +199,22 @@
 
                     </h6>
 
-
+                   
+					
 
                 </div>
 
 
 
-            </div>
+            </div> 
+
+        <br /><br />
+
+
+
+
+
+
 
 
 
@@ -300,7 +296,7 @@
 
         app.controller("myCtrl", function($scope,$http){
 
-		$scope.names = ["Emil", "Tobias", "Linus"];
+		
 
         $scope.SendData = function() {
 
@@ -312,7 +308,9 @@
 
 				  aName : $scope.areaname,
 
-				  tName : $scope.tendertype
+				  fdate : $scope.fromdate,
+				  
+				  tdate : $scope.todate
 
                 }
 
