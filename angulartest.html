@@ -1,19 +1,34 @@
+<head>
+<style media="screen" type="text/css">
+ul li{
+  display: inline;
+}
+</style>
+</head>
 <body>
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <div ng-app="app" ng-controller="myCtrl">
-        <p>CITY: <input type="text" name="cityname" ng-model="cityname" required /></p>
-        <p>AREA: <input type="text" name="areaname" ng-model="areaname" required /></p>
-		<p>TENDER TYPE: <input type="text" name="tendertype" ng-model="tendertype" required /></p>
+	    <!-- <select ng-model="selectedName" ng-options="x for x in names"></select> -->
+        <p>CITY: <input type="text" ng-model="cityname" required /></p>
+        <p>AREA: <input type="text" ng-model="areaname" required /></p>
+		<p>TENDER TYPE: <input type="text"  ng-model="tendertype" required /></p>
         <button ng-click="SendData()">Submit</button>
-        <hr />
+		<h4 ng-repeat="tender in PostDataResponse">
+		NAME:{{tender.name}}- 
+		<p> LINKS </p>
+		<li ng-repeat="link in tender.Links">
+		<a href={{link}}> Link{{$index + 1}} </a> 
+		</li>
+		</h4>
+		<hr />
         {{ PostDataResponse }}
     </div>
     <script>
         var app = angular.module("app",[]);
         app.controller("myCtrl", function($scope,$http){
+		$scope.names = ["Emil", "Tobias", "Linus"];
         $scope.SendData = function() {
-		
 		
             var data = {
                    cName : $scope.cityname,
@@ -23,10 +38,16 @@
             $http.post('/post', data)
                 .success(function (data, status, headers, config) {
                     $scope.PostDataResponse = data;
+					/*var m=data.map(JSON.stringify);
+					for (var i=0;i<m.length;i++) {
+			              var mj=JSON.parse(m[i]);
+							alert(mj.name);
+							for(var j=0;j<mj.Links.length;j++)
+							   alert(mj.Links[j]);
+						}*/
                 })
                 .error(function(data, status, header, config){
                     $scope.PostDataResponse = "Data: " + status;
-
 
                 });
         };  		

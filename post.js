@@ -1,7 +1,4 @@
 var express = require('express');
-var multer  =   require('multer');
-var mime    =   require('mime');
-var mysql = require('mysql');
 var app = express();
 var bodyParser =    require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
