@@ -96,88 +96,88 @@
 
 
 
-            <form name="form1" class="form-inline" role="form">
+        <form name="form1" class="form-inline" role="form">
+
+           <div class="col-md-4" style="text-align: center">
+            <label>
+
+                STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename" onchange="loadCities()" required>
 
 
 
-
-                <div class="col-md-4" style="text-align: center">
-                    <label>
-
-                        STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename" onchange="loadCities()" required>
+                    <option disabled selected value>select state</option>
+                    <option>Karnataka</option>
 
 
+                </select>
 
-                            <option disabled selected value>select state</option>
-                            <option>Karnataka</option>
+            </label>
+			</div>
 
-
-                        </select>
-
-                    </label>
-                </div>
-
-
-                <div class="col-md-4" style="text-align: center">
-                    <label>
-
-                        CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()" required>
+            
 
 
 
-                            <option disabled selected value>select city</option>
+            <div class="col-md-4" style="text-align: center">
+            <label>
+
+                CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()" required>
 
 
 
-                        </select>
-
-                    </label>
-                </div>
-
-
-                <div class="col-md-4" style="text-align: center">
-                    <label>
-
-                        AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname" required>
+                    <option disabled selected value>select city</option>
 
 
 
-                            <option disabled selected value>select area</option>
+                </select>
+
+            </label>
+			</div>
+
+
+			<div class="col-md-4" style="text-align: center">
+            <label>
+
+                AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname" required>
 
 
 
-                        </select>
-
-                    </label>
-                </div>
-
-
-                <div class="col-md-6" style="text-align: center">
-                    <label>
-                        FROM:&nbsp <input type="date" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" onchange="dateChecker()" required/>
-                    </label>
-
-                </div>
-
-                <div class="col-md-6" style="text-align: center">
-                    <label>
-                        TO:&nbsp <input type="date" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" onchange="dateChecker()" required/>
-                    </label>
-
-                </div>
+                    <option disabled selected value>select area</option>
 
 
 
-                <br>
-                <div class="col-md-12" style="text-align: center">
-                    <button type="submit" class="btn btn-primary mb-2" ng-click="form1.$valid && SendData()">Submit</button>
-                </div>
+                </select>
+
+            </label>
+			</div>
+			
+			
+			<div class="col-md-6" style="text-align: center">
+            <label>
+				FROM:&nbsp <input type="date" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" onchange="dateChecker()" required/>
+            </label>
+			
+			</div>
+			
+			<div class="col-md-6" style="text-align: center">
+            <label>
+				TO:&nbsp <input type="date" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" onchange="dateChecker()" required/>
+            </label>
+			
+			</div>
+
+            
+            
+            <br>
+            <div class="col-md-12" style="text-align: center">
+            <button type="submit" class="btn btn-primary mb-2" ng-click="form1.$valid && SendData()">Submit</button>
+			</div>
 
 
-            </form>
+        </form>
 
 
-        <hr/> {{PostDataResponse.dataArray}}
+        <!--<hr/> {{PostDataResponse.dataArray}}-->
         <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
 
           <p>AREA: <input type="text" ng-model="areaname" required /></p>
@@ -195,19 +195,17 @@
 
                 <div class="card-body">
 
+                  <h4 class="card-title">{{tender.docName}}</h4>
 
-
-                    <h4 class="card-text">{{tender.locality}}</h4>
+                    <h5 class="card-text">{{tender.hostUrl}}</h5>
 					
-					<h4 class="card-text">{{tender.docType}}</h4>
-					
-					<h4 class="card-text">{{tender.publishedTime}}</h4>
+					<h5 class="card-text">{{tender.publishedDate}}</h5>
 
-					<h6 ng-repeat="link in tender.linkOfTheDocs">
+					<h6 ng-repeat="link in tender.documentLinks">
 
 
 
-                        <a href={{link}} class="card-link">Link{{$index + 1}}</a>
+                        <a href={{link}} class="card-link" target="_blank">Link{{$index + 1}}</a>
 
 
 
@@ -220,22 +218,7 @@
 
 
 
-            </div> 
-
-        <br /><br />
-
-
-
-
-
-
-
-
-
-            <br />
-
-
-
+            </div>
     </div>
 
 
@@ -327,6 +310,8 @@
 
             var data = {
 
+				   sName :$scope.statename,
+				   
                    cName : $scope.cityname,
 
 				  aName : $scope.areaname,
@@ -372,5 +357,4 @@
         });
 
     </script>
-
 </body>
