@@ -4,26 +4,96 @@ ul li{
   display: inline;
 }
 </style>
+ <title>Tender Details</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <div ng-app="app" ng-controller="myCtrl">
+    <div class = "container" ng-app="app" ng-controller="myCtrl">
 	    <!-- <select ng-model="selectedName" ng-options="x for x in names"></select> -->
-        <p>CITY: <input type="text" ng-model="cityname" required /></p>
+		<h2>Tender Details</h2>
+
+
+
+        <form name="form1" class="form-inline" role="form">
+
+
+
+            <label>CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname">
+
+				<option selected>Bangalore</option>
+
+                <option>Chennai</option>
+
+            </select>
+			</label>
+			
+			<label>AREA:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="areaname">
+
+				<option>Adyar</option>
+
+                <option>Bellandur</option>
+
+            </select>
+			</label>
+			
+			<label>TENDER TYPE:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="tendertype">
+
+				<option>Road Tender</option>
+
+                <option>Construction Tender</option>
+
+            </select>
+			</label>
+			
+			<button type="button" class="btn btn-primary mb-2" ng-click="SendData()">Submit</button>
+
+        </form>
+
+      <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
         <p>AREA: <input type="text" ng-model="areaname" required /></p>
 		<p>TENDER TYPE: <input type="text"  ng-model="tendertype" required /></p>
-        <button ng-click="SendData()">Submit</button>
-		<h4 ng-repeat="tender in PostDataResponse">
-		NAME:{{tender.name}}- 
-		<p> LINKS </p>
-		<li ng-repeat="link in tender.Links">
-		<a href={{link}}> Link{{$index + 1}} </a> 
-		</li>
-		</h4>
-		<hr />
-        {{ PostDataResponse }}
+        <button ng-click="SendData()">Submit</button> -->
+		 <br /><br/>
+
+
+        <h4 ng-repeat="tender in PostDataResponse">
+        <div class="card">
+
+            <div class="card-body">
+
+                <h4 class="card-title">{{tender.name}}</h4>
+
+                <p class="card-text"><h6>Small snippet or date</h6></p>
+				
+				<h6 ng-repeat="link in tender.Links">
+
+                <a href={{link}} class="card-link">Link{{$index + 1}}</a>
+				
+				</h6>
+
+            </div>
+
+        </div>
+
+        <br />
+		
     </div>
+	
+	
+
     <script>
         var app = angular.module("app",[]);
         app.controller("myCtrl", function($scope,$http){
