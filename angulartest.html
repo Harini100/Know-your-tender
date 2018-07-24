@@ -12,7 +12,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -25,14 +25,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <div class="container" ng-app="app" ng-controller="myCtrl">
         <!-- <select ng-model="selectedName" ng-options="x for x in names"></select> -->
-        <h2>Tender Details</h2>
+        
+        <h2 align="center">Know Your Tender</h2>
 
+        <br />
 
-
-        <form name="form1" class="form-inline" role="form">
-
-
-
+        <form name="form1" class="form-inline text-center" role="form">
             <label>
                 CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()">
 
@@ -91,8 +89,6 @@
 
             </div>
 
-            <br />
-
     </div>
 
 
@@ -113,8 +109,8 @@
         function loadAreas() {
             var x = document.getElementById("area");
             var y = document.getElementById("city");
-            while (x.length > 0) {
-                x.remove(0);
+            while (x.length > 1) {
+                x.remove(1);
             }
             var url = "areas.json";
             $.getJSON(url, function (json) {

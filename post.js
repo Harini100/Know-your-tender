@@ -17,6 +17,10 @@ app.get('/areas.json', function (req, res) {
     res.sendFile(__dirname + '/' + 'areas.json');
     console.log("################");
 });
+app.get('/bootstrap.min.css', function (req, res) {
+    res.sendFile(__dirname + '/' + 'bootstrap.min.css');
+    console.log("****************");
+});
 app.post("/post", function (req, res) {
 	    var response2;
 		var value1=req.body.cName;
