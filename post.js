@@ -5,27 +5,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.get('/angulartest.html', function (req, res) {
+app.get('/angulartest.html', function(req, res){
     res.sendFile(__dirname + '/' + 'angulartest.html');
     console.log("----------------");
 });
+
 app.get('/cities.json', function (req, res) {
+
     res.sendFile(__dirname + '/' + 'cities.json');
-    console.log("################");
+
+
 });
+
 app.get('/areas.json', function (req, res) {
+
     res.sendFile(__dirname + '/' + 'areas.json');
-    console.log("################");
+
 });
 app.get('/bootstrap.min.css', function (req, res) {
     res.sendFile(__dirname + '/' + 'bootstrap.min.css');
     console.log("****************");
 });
+
 app.post("/post", function (req, res) {
 	    var response2;
 		var value1=req.body.cName;
 		var value2=req.body.aName;
-		var value3=req.body.tName
+		var value3=req.body.fdate;
+		var value4=req.body.tdate;
 
 /*		 response1 = {
       id:"test1",
@@ -34,12 +41,13 @@ app.post("/post", function (req, res) {
    console.log(response1);
    console.log(JSON.stringify(response1));*/
    var request = require('request');
-request('http://localhost:6000', function (error, response, body) {
+request('https://webcrawlerbackend.azurewebsites.net/api/GetSearchResults?locality=bangalore&doctype=pdf&publishedTime=01-01-0001', function (error, response, body) {
   if (!error && response.statusCode == 200) {
 	  response2 = body ;
 	  console.log("TEST:CITY NAME IS  "+value1);
 		console.log("TEST:AREA NAME IS  " +value2);
-		console.log("TEST:TENDER TYPE IS  " +value3);
+		console.log("TEST:FROM DATE IS  " +value3);
+		console.log("TEST:TO DATE IS"+value4);
     console.log(body); // Print the body of response.
 	res.end(body);
   }
