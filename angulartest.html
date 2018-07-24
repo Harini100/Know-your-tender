@@ -98,7 +98,21 @@
 
         <form name="form1" class="form-inline" role="form">
 
+           <div class="col-md-4" style="text-align: center">
+            <label>
 
+                STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename">
+
+
+
+                    <option disabled selected value>select state</option>
+                    <option>Karnataka</option>
+
+
+                </select>
+
+            </label>
+			</div>
 
             
 
@@ -163,7 +177,7 @@
         </form>
 
 
-        <hr/> {{PostDataResponse.dataArray}}
+        <!--<hr/> {{PostDataResponse.dataArray}}-->
         <!--  <p>CITY: <input type="text" ng-model="cityname" required /></p>
 
           <p>AREA: <input type="text" ng-model="areaname" required /></p>
@@ -181,15 +195,13 @@
 
                 <div class="card-body">
 
+                  <h4 class="card-title">{{tender.docName}}</h4>
 
-
-                    <h4 class="card-text">{{tender.locality}}</h4>
+                    <h5 class="card-text">{{tender.hostUrl}}</h5>
 					
-					<h4 class="card-text">{{tender.docType}}</h4>
-					
-					<h4 class="card-text">{{tender.publishedTime}}</h4>
+					<h5 class="card-text">{{tender.publishedDate}}</h5>
 
-					<h6 ng-repeat="link in tender.linkOfTheDocs">
+					<h6 ng-repeat="link in tender.documentLinks">
 
 
 
@@ -304,6 +316,8 @@
 
             var data = {
 
+				   sName :$scope.statename,
+				   
                    cName : $scope.cityname,
 
 				  aName : $scope.areaname,
