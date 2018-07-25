@@ -25,9 +25,6 @@ app.get('/areas.json', function (req, res) {
 
 app.post("/post", function (req, res) {
 	    var response2;
-        var value1=req.body.sName;
-		var value2=(req.body.cName).toLowerCase();
-		var value3=req.body.aName;
 		var value4=req.body.fdate;
 		var value5=req.body.tdate;
 		var value6=(value4.split("T"))[0];
@@ -46,14 +43,11 @@ app.post("/post", function (req, res) {
    console.log(response1);
    console.log(JSON.stringify(response1));*/
    var request = require('request');
-   console.log('https://webcrawlerbackend.azurewebsites.net/api/GetSearchResults?city='+value2+'&division='+value3+'&state='+value1+'&publishedStartDate='+value10+'&publishedEndDate='+value11);
+  // console.log('https://webcrawlerbackend.azurewebsites.net/api/GetSearchResults?city='+value2+'&division='+value3+'&state='+value1+'&publishedStartDate='+value10+'&publishedEndDate='+value11);
 //  request('https://webcrawlerbackend.azurewebsites.net/api/GetSearchResults?city=bangalore&division=HSR layout&state=Karnataka&publishedStartDate=01-10-2012&publishedEndDate=15-10-2017', function (error, response, body){
 request('https://webcrawlerbackend.azurewebsites.net/api/searchNotificationsInTime?startDate=01-01-1000&endDate='+value11, function (error, response, body) {
   if (!error && response.statusCode == 200) {
 	  response2 = body ;
-	  console.log("TEST:STATE NAME IS  "+value1);
-	  console.log("TEST:CITY NAME IS  "+value2);
-		console.log("TEST:AREA NAME IS  " +value3);
 		console.log("TEST:FROM DATE IS  " +value10);
 		console.log("TEST:TO DATE IS"+value9);
     console.log(body); // Print the body of response.

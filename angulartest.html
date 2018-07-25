@@ -97,60 +97,6 @@
 
 
         <form name="form1" class="form-inline" role="form">
-
-           <div class="col-md-4" style="text-align: center">
-            <label>
-
-                STATE:&nbsp   <select name="state" class="form-control mb-2 mr-sm-2" id="state" ng-model="statename">
-
-
-
-                    <option disabled selected value>select state</option>
-                    <option>Karnataka</option>
-
-
-                </select>
-
-            </label>
-			</div>
-
-            
-
-
-
-            <div class="col-md-4" style="text-align: center">
-            <label>
-
-                CITY:&nbsp   <select name="city" class="form-control mb-2 mr-sm-2" id="city" ng-model="cityname" onchange="loadAreas()">
-
-
-
-                    <option disabled selected value>select city</option>
-
-
-
-                </select>
-
-            </label>
-			</div>
-
-
-			<div class="col-md-4" style="text-align: center">
-            <label>
-
-                AREA:&nbsp   <select name="area" class="form-control mb-2 mr-sm-2" id="area" ng-model="areaname">
-
-
-
-                    <option disabled selected value>select area</option>
-
-
-
-                </select>
-
-            </label>
-			</div>
-			
 			
 			<div class="col-md-6" style="text-align: center">
             <label>
@@ -206,24 +152,25 @@
 		  
 		  
 		         
-				  
+             <h3>{{TITLE}}</h3>				  
 				  <h4 ng-repeat="tender in PostDataResponse.notifications">
 
             <div class="card">
 
 
-
                 <div class="card-body">
+				
+				    <h4 class="card-title">{{tender.linktext}}</h4>
 
-                    <h5 class="card-text">{{tender.pageUrl}}</h5>
+                    <h6 class="card-text"><a href={{tender.pageUrl}}>GO TO THE PAGE</a></h5>
 					
-					<h5 class="card-text">{{tender.linkUrl}}</h5>
+					<h6 class="card-text"><a href={{tebder.linkUrl}}>GO TO THE LINK</a></h5>
 
 					<h6 ng-repeat="tag in tender.tags">
 
 
 
-                        <a href={{tag}} class="card-link">Link{{$index + 1}}</a>
+                        <a class="card-link">Tag{{$index + 1}}: {{tag}}</a>
 
                     </h6>
                 </div>
@@ -239,17 +186,19 @@
 
 
 
-                <div class="card-body">
+               <div class="card-body">
+				
+				    <h4 class="card-title">{{tender.linktext}}</h4>
 
-                    <h5 class="card-text">{{tender.pageUrl}}</h5>
+                    <h6 class="card-text"><a href={{tender.pageUrl}}>GO TO THE PAGE</a></h5>
 					
-					<h5 class="card-text">{{tender.linkUrl}}</h5>
+					<h6 class="card-text"><a href={{tebder.linkUrl}}>GO TO THE LINK</a></h5>
 
 					<h6 ng-repeat="tag in tender.tags">
 
 
 
-                        <a href={{tag}} class="card-link">Link{{$index + 1}}</a>
+                        <a class="card-link">Tag{{$index + 1}}: {{tag}}</a>
 
                     </h6>
                 </div>
@@ -335,12 +284,6 @@
 
             var data = {
 
-				   sName :$scope.statename,
-				   
-                   cName : $scope.cityname,
-
-				  aName : $scope.areaname,
-
 				  fdate : $scope.fromdate,
 				  
 				  tdate : $scope.todate
@@ -352,6 +295,8 @@
                 .success(function (data, status, headers, config) {
 
                     $scope.PostDataResponse = data;
+					
+					$scope.Title = "NOTIFICATIONS";
 
 					/*var m=data.map(JSON.stringify);
 
