@@ -34,8 +34,10 @@ app.post("/post", function (req, res) {
 		var value7=(value5.split("T"))[0];
 		console.log(value4);
 		console.log(value5);
-		var value8=value6.split("-").reverse();
-		var value9=value7.split("-").reverse();
+		var value8 = value6.split("-").reverse();
+		value8[0] = String(parseInt(value8[0]) + 1);
+		var value9 = value7.split("-").reverse();
+		value9[0] = String(parseInt(value9[0]) + 1);
 		var value10=value8.join("-");
 		var value11=value9.join("-");
 
@@ -55,7 +57,7 @@ request('https://webcrawlerbackend.azurewebsites.net/api/searchNotificationsInTi
 	  console.log("TEST:CITY NAME IS  "+value2);
 		console.log("TEST:AREA NAME IS  " +value3);
 		console.log("TEST:FROM DATE IS  " +value10);
-		console.log("TEST:TO DATE IS"+value9);
+		console.log("TEST:TO DATE IS "+value11);
     console.log(body); // Print the body of response.
 	res.end(body);
   }
@@ -67,7 +69,17 @@ request('https://webcrawlerbackend.azurewebsites.net/api/searchNotificationsInTi
 
 app.post("/post1", function (req, res) {
 	    
-     var var1=req.body.sName;
+    var var1 = req.body.sName;
+    var multipletags = 0;
+    if (multipletags == 1) {
+        var var2 = var1.split("\"");
+        if (var2.length == 3) {
+            var1 = var2[1];
+        }
+        else {
+            var1 = var1.split(" ").join(",");
+        }
+    }
 	 console.log(var1);
 	 var request=require('request');
 	 request('https://webcrawlerbackend.azurewebsites.net/api/searchNotificationOnTags?tags='+var1, function (error, response, body) {
