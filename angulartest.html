@@ -100,14 +100,14 @@
 			
 			<div class="col-md-6" style="text-align: center">
             <label>
-				FROM:&nbsp <input type="datetime-local" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" />
+				FROM:&nbsp <input type="date" name="fromdate" id="fromdate" class="form-control mb-2 mr-sm-2" ng-model="fromdate" />
             </label>
 			
 			</div>
 			
 			<div class="col-md-6" style="text-align: center">
             <label>
-				TO:&nbsp <input type="datetime-local" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" />
+				TO:&nbsp <input type="date" name="todate" id="todate" class="form-control mb-2 mr-sm-2" ng-model="todate" />
             </label>
 			
 			</div>
@@ -133,7 +133,7 @@
 
                 <div class="col-md-12" style="text-align: center">
 
-                ENTER KEYWORD:&nbsp   <input type="text" ng-model="searchquery">
+                ENTER KEYWORD:&nbsp   <input type="text" ng-model="searchquery"> &nbsp
             
             <button type="button" class="btn btn-primary mb-2" ng-click="SearchData()">SEARCH</button>
 			   </div>
@@ -190,9 +190,9 @@
 				
 				    <h4 class="card-title">{{tender.linktext}}</h4>
 
-                    <h6 class="card-text"><a href={{tender.pageUrl}}>GO TO THE PAGE</a></h5>
+                    <h6 class="card-text"><a href={{tender.pageUrl}} target="_blank">GO TO THE PAGE</a></h5>
 					
-					<h6 class="card-text"><a href={{tebder.linkUrl}}>GO TO THE LINK</a></h5>
+					<h6 class="card-text"><a href={{tender.linkUrl}} target="_blank">GO TO THE LINK</a></h5>
 
 					<h6 ng-repeat="tag in tender.tags">
 
