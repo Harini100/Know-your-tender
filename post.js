@@ -77,10 +77,16 @@ app.post("/post1", function (req, res) {
 	 console.log(var1);
 	 var request=require('request');
 	 request('https://webcrawlerbackend.azurewebsites.net/api/searchNotificationOnTags?tags='+var1, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    console.log(body); // Print the body of response.
-	res.end(body);
-  }
+	     if (!error && response.statusCode == 200) {
+	         body = JSON.parse(body);             
+	         for (var i = 0; i < body.notifications.length; i++) {
+	             body.notifications[i].luDate = body.notifications[i].lastUpdatedTime.split(" ")[0];
+	             body.notifications[i].luTime = body.notifications[i].lastUpdatedTime.split(" ")[1];
+	         }	         
+	         body = JSON.stringify(body);
+             console.log(body); // Print the body of response.
+	         res.end(body);
+        }
 })
     
 });
